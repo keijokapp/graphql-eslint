@@ -166,6 +166,22 @@ ruleTester.run('no-unreachable-types', rule, {
         type Query
       `,
     }),
+    withSchema({
+      name: 'should ignore wrapped types from directive arguments with request locations',
+      code: /* GraphQL */ `
+        scalar Scalar0
+        scalar Scalar1
+        scalar Scalar2
+        scalar Scalar3
+        scalar Scalar4
+        directive @q(arg: Scalar0) on QUERY
+        directive @w(arg: [Scalar1]) on QUERY
+        directive @e(arg: [Scalar2]!) on QUERY
+        directive @r(arg: [Scalar3!]) on QUERY
+        directive @t(arg: [Scalar4!]!) on QUERY
+        type Query
+      `,
+    }),
   ],
   invalid: [
     withSchema({
